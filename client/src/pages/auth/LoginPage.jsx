@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
+import { Leaf, Eye, EyeOff } from 'lucide-react';
 
 const LoginPage = () => {
   const { login } = useAuth();
@@ -57,10 +58,7 @@ const LoginPage = () => {
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="w-12 h-12 rounded-xl bg-[#EAF3DE] flex items-center justify-center mx-auto mb-3">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3B6D11" strokeWidth="2">
-              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/>
-              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
-            </svg>
+            <Leaf size={24} color="#3B6D11" strokeWidth={2} />
           </div>
           <h1 className="text-[22px] font-medium text-[#2C2C2A]">Welcome back</h1>
           <p className="text-[14px] text-[#5F5E5A] mt-1">Sign in to your VillageConnect account</p>
@@ -104,14 +102,9 @@ const LoginPage = () => {
                   tabIndex={-1}
                 >
                   {showPass ? (
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19M1 1l22 22" strokeLinecap="round"/>
-                    </svg>
+                    <EyeOff size={16} strokeWidth={2} />
                   ) : (
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                      <circle cx="12" cy="12" r="3"/>
-                    </svg>
+                    <Eye size={16} strokeWidth={2} />
                   )}
                 </button>
               }

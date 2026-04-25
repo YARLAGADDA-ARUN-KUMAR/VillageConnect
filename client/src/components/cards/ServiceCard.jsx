@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { ChevronRight } from 'lucide-react';
 
 const ServiceCard = ({ icon, title, description, link, id }) => (
   <Link
@@ -15,16 +16,12 @@ const ServiceCard = ({ icon, title, description, link, id }) => (
       {icon}
     </div>
     <div>
-      <h3 className="text-[15px] font-medium text-[#2C2C2A] group-hover:text-[#3B6D11] transition-colors">
-        {title}
-      </h3>
+      <h3 className="text-[15px] font-medium text-[#2C2C2A] group-hover:text-[#3B6D11] transition-colors">{title}</h3>
       <p className="text-[13px] text-[#5F5E5A] mt-1 leading-relaxed">{description}</p>
     </div>
     <div className="mt-auto pt-1 flex items-center gap-1.5 text-[13px] text-[#3B6D11] font-medium">
       View Module
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-        <path d="M9 18l6-6-6-6" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
+      <ChevronRight size={14} strokeWidth={2.5} />
     </div>
   </Link>
 );

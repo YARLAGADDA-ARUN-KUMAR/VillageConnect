@@ -1,13 +1,7 @@
 import { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-
-const LeafIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3B6D11" strokeWidth="2">
-    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z" />
-    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
-  </svg>
-);
+import { Leaf, ChevronDown, X, Menu, User, LayoutDashboard, LogOut } from 'lucide-react';
 
 const navLinks = [
   { to: '/dashboard', label: 'Home' },
@@ -39,7 +33,7 @@ const Navbar = () => {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 flex-shrink-0">
-          <LeafIcon />
+          <Leaf size={22} color="#3B6D11" strokeWidth={2} />
           <span className="text-[17px] font-medium text-[#27500A] tracking-tight">VillageConnect</span>
         </Link>
 
@@ -79,9 +73,7 @@ const Navbar = () => {
                 <span className="hidden sm:block text-[13px] font-medium text-[#2C2C2A] max-w-[120px] truncate">
                   {user.name}
                 </span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M6 9l6 6 6-6" strokeLinecap="round" />
-                </svg>
+                <ChevronDown size={14} strokeWidth={2} />
               </button>
 
               {dropdownOpen && (
@@ -93,9 +85,7 @@ const Navbar = () => {
                       className="flex items-center gap-2.5 px-4 py-2.5 text-[13px] text-[#2C2C2A] hover:bg-[#EAF3DE] transition-colors"
                       onClick={() => setDropdownOpen(false)}
                     >
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-                      </svg>
+                      <User size={15} strokeWidth={2} />
                       My Profile
                     </Link>
                     {user.role === 'admin' && (
@@ -104,10 +94,7 @@ const Navbar = () => {
                         className="flex items-center gap-2.5 px-4 py-2.5 text-[13px] text-[#2C2C2A] hover:bg-[#EAF3DE] transition-colors"
                         onClick={() => setDropdownOpen(false)}
                       >
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
-                          <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
-                        </svg>
+                        <LayoutDashboard size={15} strokeWidth={2} />
                         Admin Panel
                       </Link>
                     )}
@@ -117,9 +104,7 @@ const Navbar = () => {
                         onClick={handleLogout}
                         className="w-full flex items-center gap-2.5 px-4 py-2.5 text-[13px] text-[#E24B4A] hover:bg-red-50 transition-colors"
                       >
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" strokeLinecap="round"/>
-                        </svg>
+                        <LogOut size={15} strokeWidth={2} />
                         Logout
                       </button>
                     </div>
@@ -129,16 +114,10 @@ const Navbar = () => {
             </div>
           ) : (
             <div className="hidden sm:flex items-center gap-2">
-              <Link
-                to="/login"
-                className="px-4 py-2 text-[14px] font-medium text-[#3B6D11] hover:bg-[#EAF3DE] rounded-lg transition-colors"
-              >
+              <Link to="/login" className="px-4 py-2 text-[14px] font-medium text-[#3B6D11] hover:bg-[#EAF3DE] rounded-lg transition-colors">
                 Login
               </Link>
-              <Link
-                to="/register"
-                className="px-4 py-2 text-[14px] font-medium bg-[#3B6D11] text-white rounded-lg hover:bg-[#27500A] transition-colors"
-              >
+              <Link to="/register" className="px-4 py-2 text-[14px] font-medium bg-[#3B6D11] text-white rounded-lg hover:bg-[#27500A] transition-colors">
                 Register
               </Link>
             </div>
@@ -151,15 +130,7 @@ const Navbar = () => {
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
-            {mobileOpen ? (
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" />
-              </svg>
-            ) : (
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M3 12h18M3 6h18M3 18h18" strokeLinecap="round" />
-              </svg>
-            )}
+            {mobileOpen ? <X size={18} strokeWidth={2} /> : <Menu size={18} strokeWidth={2} />}
           </button>
         </div>
       </nav>

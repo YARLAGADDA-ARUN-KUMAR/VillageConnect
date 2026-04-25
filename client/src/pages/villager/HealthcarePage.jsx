@@ -4,12 +4,11 @@ import { useToast } from '../../context/ToastContext';
 import VillagerLayout from '../../components/layout/VillagerLayout';
 import SkeletonCard from '../../components/ui/SkeletonCard';
 import { formatDateShort } from '../../utils/formatDate';
+import { Activity } from 'lucide-react';
 
 const EmptyState = () => (
   <div className="flex flex-col items-center py-16 text-center">
-    <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#d4d0c8" strokeWidth="1.5" className="mb-4">
-      <path d="M22 12h-4l-3 9L9 3l-3 9H2" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
+    <Activity size={56} strokeWidth={1.5} color="#d4d0c8" className="mb-4" />
     <h3 className="text-[16px] font-medium text-[#2C2C2A]">No healthcare info available</h3>
     <p className="text-[13px] text-[#5F5E5A] mt-1">Check back soon for health services near you.</p>
   </div>
@@ -45,9 +44,7 @@ const HealthcarePage = () => {
           {items.map((item) => (
             <div key={item._id} className="bg-white rounded-xl border border-[#3B6D11]/10 p-5 flex flex-col gap-3 hover:border-[#3B6D11]/25 transition-all">
               <div className="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center text-red-400">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M22 12h-4l-3 9L9 3l-3 9H2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                <Activity size={20} strokeWidth={2} />
               </div>
               <h3 className="text-[15px] font-medium text-[#2C2C2A]">{item.title}</h3>
               <div>

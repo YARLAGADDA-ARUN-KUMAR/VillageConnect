@@ -5,6 +5,7 @@ import { useToast } from '../../context/ToastContext';
 import VillagerLayout from '../../components/layout/VillagerLayout';
 import Button from '../../components/ui/Button';
 import { formatDate } from '../../utils/formatDate';
+import { ChevronLeft, Building2, MapPin } from 'lucide-react';
 
 const JobDetailPage = () => {
   const { id } = useParams();
@@ -47,9 +48,7 @@ const JobDetailPage = () => {
           onClick={() => navigate(-1)}
           className="flex items-center gap-1.5 text-[13px] text-[#5F5E5A] hover:text-[#3B6D11] mb-5 transition-colors"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M15 18l-6-6 6-6" strokeLinecap="round"/>
-          </svg>
+          <ChevronLeft size={16} strokeWidth={2} />
           Back to Jobs
         </button>
 
@@ -60,15 +59,11 @@ const JobDetailPage = () => {
               <h1 className="text-[22px] font-medium text-[#2C2C2A]">{job.title}</h1>
               <div className="flex flex-wrap items-center gap-3 mt-2 text-[13px] text-[#5F5E5A]">
                 <span className="flex items-center gap-1.5">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                  </svg>
+                  <Building2 size={14} strokeWidth={2} />
                   {job.company}
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/>
-                  </svg>
+                  <MapPin size={14} strokeWidth={2} />
                   {job.location}
                 </span>
                 <span className="bg-[#EAF3DE] text-[#3B6D11] px-2 py-0.5 rounded-full text-[11px] border border-[#3B6D11]/15">

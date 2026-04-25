@@ -5,15 +5,13 @@ import VillagerLayout from '../../components/layout/VillagerLayout';
 import Badge from '../../components/ui/Badge';
 import SkeletonCard from '../../components/ui/SkeletonCard';
 import { formatDateShort } from '../../utils/formatDate';
+import { Leaf } from 'lucide-react';
 
 const tabs = ['all', 'tip', 'scheme'];
 
 const EmptyState = ({ filter }) => (
   <div className="flex flex-col items-center py-16 text-center">
-    <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#d4d0c8" strokeWidth="1.5" className="mb-4">
-      <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/>
-      <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
-    </svg>
+    <Leaf size={56} strokeWidth={1.5} color="#d4d0c8" className="mb-4" />
     <h3 className="text-[16px] font-medium text-[#2C2C2A]">No {filter === 'all' ? 'tips or schemes' : filter + 's'} found</h3>
     <p className="text-[13px] text-[#5F5E5A] mt-1">Check back later for new content.</p>
   </div>

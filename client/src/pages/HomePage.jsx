@@ -2,60 +2,40 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import ServiceCard from '../components/cards/ServiceCard';
+import { Briefcase, Leaf, Activity, BookOpen, MessageSquare } from 'lucide-react';
 
 const services = [
   {
     id: 'home-jobs',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
-      </svg>
-    ),
+    icon: <Briefcase size={22} strokeWidth={1.8} />,
     title: 'Rural Jobs',
     description: 'Browse local job openings and employment opportunities in your area.',
     link: '/jobs',
   },
   {
     id: 'home-agriculture',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/>
-        <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
-      </svg>
-    ),
+    icon: <Leaf size={22} strokeWidth={1.8} />,
     title: 'Agriculture',
     description: 'Farming tips, crop advice, and government schemes to improve your yield.',
     link: '/agriculture',
   },
   {
     id: 'home-healthcare',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <path d="M22 12h-4l-3 9L9 3l-3 9H2" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
+    icon: <Activity size={22} strokeWidth={1.8} />,
     title: 'Healthcare',
     description: 'Access health services, clinics, and wellness information near you.',
     link: '/healthcare',
   },
   {
     id: 'home-education',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-      </svg>
-    ),
+    icon: <BookOpen size={22} strokeWidth={1.8} />,
     title: 'Education',
     description: 'Learning resources, courses, and scholarships for rural students.',
     link: '/education',
   },
   {
     id: 'home-grievance',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" strokeLinecap="round"/>
-      </svg>
-    ),
+    icon: <MessageSquare size={22} strokeWidth={1.8} />,
     title: 'Grievance',
     description: 'Submit complaints and track their resolution status transparently.',
     link: '/grievance',
@@ -77,10 +57,7 @@ const HomePage = () => (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 flex flex-col items-center text-center gap-6">
         {/* Decorative leaf */}
         <div className="w-16 h-16 rounded-2xl bg-[#EAF3DE] flex items-center justify-center mb-2">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#3B6D11" strokeWidth="1.8">
-            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/>
-            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
-          </svg>
+          <Leaf size={32} color="#3B6D11" strokeWidth={1.8} />
         </div>
 
         <div>

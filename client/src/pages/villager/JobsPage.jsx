@@ -5,13 +5,11 @@ import VillagerLayout from '../../components/layout/VillagerLayout';
 import JobCard from '../../components/cards/JobCard';
 import SkeletonCard from '../../components/ui/SkeletonCard';
 import Input from '../../components/ui/Input';
+import { Briefcase } from 'lucide-react';
 
 const EmptyState = () => (
   <div className="flex flex-col items-center py-16 text-center">
-    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#d4d0c8" strokeWidth="1.5" className="mb-4">
-      <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
-      <line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/>
-    </svg>
+    <Briefcase size={64} strokeWidth={1.5} color="#d4d0c8" className="mb-4" />
     <h3 className="text-[16px] font-medium text-[#2C2C2A]">No jobs found</h3>
     <p className="text-[13px] text-[#5F5E5A] mt-1">Try adjusting your search or check back later.</p>
   </div>

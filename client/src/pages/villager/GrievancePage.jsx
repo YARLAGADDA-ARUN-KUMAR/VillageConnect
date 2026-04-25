@@ -6,6 +6,7 @@ import Badge from '../../components/ui/Badge';
 import Button from '../../components/ui/Button';
 import { SkeletonRow } from '../../components/ui/SkeletonCard';
 import { formatDateShort } from '../../utils/formatDate';
+import { MessageSquare } from 'lucide-react';
 
 const GrievancePage = () => {
   const { showToast } = useToast();
@@ -105,9 +106,7 @@ const GrievancePage = () => {
               </table>
             ) : grievances.length === 0 ? (
               <div className="px-5 py-12 text-center">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#d4d0c8" strokeWidth="1.5" className="mx-auto mb-3">
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" strokeLinecap="round"/>
-                </svg>
+                <MessageSquare size={40} strokeWidth={1.5} color="#d4d0c8" className="mx-auto mb-3" />
                 <p className="text-[14px] font-medium text-[#2C2C2A]">No grievances yet</p>
                 <p className="text-[13px] text-[#5F5E5A] mt-1">Submit one using the form.</p>
               </div>
