@@ -11,8 +11,8 @@ import { formatDateShort } from '../../utils/formatDate';
 import { Users, MessageSquare, Clock, Briefcase } from 'lucide-react';
 
 const StatCard = ({ label, value, icon, loading }) => (
-  <div className="bg-white rounded-xl border border-[#3B6D11]/10 p-5 flex items-center gap-4">
-    <div className="w-11 h-11 rounded-xl bg-[#EAF3DE] flex items-center justify-center text-[#3B6D11] flex-shrink-0">
+  <div className="bg-white rounded-2xl border border-[#3B6D11]/10 p-5 flex items-center gap-4 shadow-[var(--shadow-subtle)] hover:shadow-[var(--shadow-card)] hover:-translate-y-[1px] transition-all duration-300 group">
+    <div className="w-12 h-12 rounded-xl bg-[#EAF3DE] flex items-center justify-center text-[#3B6D11] flex-shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 ease-out shadow-sm">
       {icon}
     </div>
     <div>
@@ -71,7 +71,7 @@ const AdminDashboard = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* Recent Grievances */}
-          <div className="bg-white rounded-xl border border-[#3B6D11]/10 overflow-hidden">
+          <div className="bg-white rounded-2xl border border-[#3B6D11]/10 overflow-hidden shadow-[var(--shadow-card)]">
             <div className="flex items-center justify-between px-5 py-4 border-b border-[#EAF3DE]">
               <h2 className="text-[15px] font-medium text-[#2C2C2A]">Recent Grievances</h2>
               <Link to="/admin/grievances" className="text-[13px] text-[#3B6D11] hover:underline">View all</Link>
@@ -100,7 +100,7 @@ const AdminDashboard = () => {
           </div>
 
           {/* Recent Users */}
-          <div className="bg-white rounded-xl border border-[#3B6D11]/10 overflow-hidden">
+          <div className="bg-white rounded-2xl border border-[#3B6D11]/10 overflow-hidden shadow-[var(--shadow-card)]">
             <div className="flex items-center justify-between px-5 py-4 border-b border-[#EAF3DE]">
               <h2 className="text-[15px] font-medium text-[#2C2C2A]">Recent Users</h2>
               <Link to="/admin/users" className="text-[13px] text-[#3B6D11] hover:underline">View all</Link>

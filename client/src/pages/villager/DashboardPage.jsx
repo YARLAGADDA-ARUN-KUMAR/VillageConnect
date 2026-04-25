@@ -4,6 +4,7 @@ import { fetchMyGrievances } from '../../api/grievance.api';
 import VillagerLayout from '../../components/layout/VillagerLayout';
 import ServiceCard from '../../components/cards/ServiceCard';
 import GrievanceCard from '../../components/cards/GrievanceCard';
+import useIntersectionObserver from '../../hooks/useIntersectionObserver';
 import { Briefcase, Leaf, Activity, BookOpen, MessageSquare } from 'lucide-react';
 
 const services = [
@@ -55,6 +56,9 @@ const DashboardPage = () => {
   const { user } = useAuth();
   const [latestGrievance, setLatestGrievance] = useState(null);
   const [grievanceLoading, setGrievanceLoading] = useState(true);
+  const { ref: bannerRef, isIntersecting: bannerVisible } = useIntersectionObserver({ threshold: 0.1 });
+  const { ref: servicesRef, isIntersecting: servicesVisible } = useIntersectionObserver({ threshold: 0.1 });
+  const { ref: activityRef, isIntersecting: activityVisible } = useIntersectionObserver({ threshold: 0.1 });
 
   useEffect(() => {
     fetchMyGrievances()
@@ -68,38 +72,40 @@ const DashboardPage = () => {
   return (
     <VillagerLayout>
       {/* Welcome Banner */}
-      <div className="bg-white rounded-xl border border-[#3B6D11]/10 p-6 sm:p-8 mb-6 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-[#EAF3DE] rounded-full blur-3xl opacity-50 -mr-10 -mt-10 pointer-events-none" />
+      <div ref={bannerRef} className={`bg-white/95 backdrop-blur-md rounded-2xl border border-[#3B6D11]/15 shadow-[var(--shadow-card)] p-6 sm:p-8 mb-6 relative overflow-hidden group hover:shadow-[var(--shadow-card-hover)] transition-all duration-500 ${bannerVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
+        <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-[#EAF3DE] to-[#3B6D11]/10 rounded-full blur-3xl opacity-60 -mr-10 -mt-10 pointer-events-none group-hover:scale-110 transition-transform duration-700" />
         <div className="relative z-10">
-          <p className="text-[13px] text-[#3B6D11] font-medium tracking-wide uppercase mb-1">{today}</p>
-          <h1 className="text-[26px] sm:text-[30px] font-medium text-[#2C2C2A] leading-tight">
-            {getGreeting()}, {user?.name?.split(' ')[0]}
+          <p className="text-[13px] text-[#3B6D11] font-medium tracking-wide uppercase mb-1.5">{today}</p>
+          <h1 className="text-[26px] sm:text-[30px] font-semibold text-[#2C2C2A] leading-tight">
+            {getGreeting()}, <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3B6D11] to-[#639922]">{user?.name?.split(' ')[0]}</span>
           </h1>
-          <p className="text-[15px] text-[#5F5E5A] mt-2 max-w-xl leading-relaxed">
+          <p className="text-[15px] text-[#5F5E5A] mt-2.5 max-w-xl leading-relaxed">
             Welcome to your VillageConnect dashboard. Access essential services, stay updated with local news, and track your requests below.
           </p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 space-y-6">
-          <h2 className="text-[16px] font-medium text-[#2C2C2A] px-1">Essential Services</h2>
+        <div ref={servicesRef} className="lg:col-span-2 space-y-6">
+          <h2 className={`text-[16px] font-medium text-[#2C2C2A] px-1 ${servicesVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>Essential Services</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {services.map((s) => (
-              <ServiceCard key={s.id} {...s} />
+            {services.map((s, idx) => (
+              <div key={s.id} className={servicesVisible ? 'animate-slide-up' : 'opacity-0'} style={{ animationDelay: `${idx * 100}ms` }}>
+                <ServiceCard {...s} />
+              </div>
             ))}
           </div>
         </div>
 
-        <div className="lg:col-span-1 space-y-6">
-          <h2 className="text-[16px] font-medium text-[#2C2C2A] px-1">Recent Activity</h2>
+        <div ref={activityRef} className="lg:col-span-1 space-y-6">
+          <h2 className={`text-[16px] font-medium text-[#2C2C2A] px-1 ${activityVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>Recent Activity</h2>
           
-          <div className="bg-white rounded-xl border border-[#3B6D11]/10 p-5">
+          <div className={`bg-white rounded-2xl border border-[#3B6D11]/10 p-5 shadow-[var(--shadow-card)] ${activityVisible ? 'animate-slide-up delay-200' : 'opacity-0'}`}>
             <h3 className="text-[13px] font-medium text-[#5F5E5A] uppercase tracking-wide mb-4">Latest Grievance</h3>
             {grievanceLoading ? (
               <div className="space-y-3">
-                <div className="skeleton h-4 w-full" />
-                <div className="skeleton h-4 w-2/3" />
+                <div className="skeleton-enhanced h-4 w-full" />
+                <div className="skeleton-enhanced h-4 w-2/3" />
               </div>
             ) : latestGrievance ? (
               <GrievanceCard grievance={latestGrievance} />

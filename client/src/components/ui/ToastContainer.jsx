@@ -13,8 +13,8 @@ const ToastItem = ({ toast, onDismiss }) => {
   return (
     <div
       className={`
-        flex items-start gap-3 bg-white rounded-lg shadow-md border-l-4 border border-gray-100
-        px-4 py-3 min-w-[280px] max-w-[360px]
+        relative overflow-hidden flex items-start gap-3 bg-white/95 backdrop-blur-md rounded-xl shadow-[var(--shadow-card-hover)] border-l-4 border-y border-r border-[#3B6D11]/10
+        px-4 py-3.5 min-w-[280px] max-w-[360px]
         ${styles.border}
         ${toast.exiting ? 'toast-exit' : 'toast-enter'}
       `}
@@ -25,11 +25,18 @@ const ToastItem = ({ toast, onDismiss }) => {
       <p className="flex-1 text-[13px] text-[#2C2C2A] leading-snug">{toast.message}</p>
       <button
         onClick={() => onDismiss(toast.id)}
-        className="text-[#9e9d99] hover:text-[#2C2C2A] flex-shrink-0 mt-0.5"
+        className="text-[#9e9d99] hover:text-[#2C2C2A] flex-shrink-0 mt-0.5 relative z-10"
         aria-label="Dismiss notification"
       >
         <X size={14} strokeWidth={2.5} />
       </button>
+      {/* Progress Bar */}
+      {!toast.exiting && (
+        <div 
+          className="absolute bottom-0 left-0 h-[3px] opacity-20 toast-progress bg-current" 
+          style={{ animationDuration: '3.5s', color: 'inherit' }} 
+        />
+      )}
     </div>
   );
 };

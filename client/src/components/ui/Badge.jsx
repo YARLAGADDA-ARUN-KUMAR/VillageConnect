@@ -17,7 +17,7 @@ const Badge = ({ status, label: customLabel, className = '' }) => {
     <span
       className={`
         inline-flex items-center px-2.5 py-0.5 text-[12px] font-medium
-        rounded-full border
+        rounded-full border shadow-sm backdrop-blur-sm bg-opacity-80
         ${styles.bg} ${styles.text} ${styles.border}
         ${className}
       `}

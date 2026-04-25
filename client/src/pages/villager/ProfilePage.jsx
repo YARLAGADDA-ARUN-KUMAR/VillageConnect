@@ -51,8 +51,8 @@ const ProfilePage = () => {
         </div>
 
         {/* Avatar card */}
-        <div className="bg-white rounded-xl border border-[#3B6D11]/10 p-6 mb-4 flex items-center gap-5">
-          <div className="w-16 h-16 rounded-full bg-[#3B6D11] text-white text-[22px] font-medium flex items-center justify-center flex-shrink-0">
+        <div className="bg-white/95 backdrop-blur-md rounded-2xl border border-[#3B6D11]/10 p-6 mb-5 flex items-center gap-5 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] transition-all duration-300 group">
+          <div className="w-16 h-16 rounded-2xl bg-[#3B6D11] text-white text-[22px] font-medium flex items-center justify-center flex-shrink-0 shadow-[var(--shadow-btn)] group-hover:scale-105 group-hover:rotate-3 transition-transform duration-300">
             {initials}
           </div>
           <div>
@@ -63,7 +63,7 @@ const ProfilePage = () => {
         </div>
 
         {/* Edit form */}
-        <div className="bg-white rounded-xl border border-[#3B6D11]/10 p-6">
+        <div className="bg-white/95 backdrop-blur-md rounded-2xl border border-[#3B6D11]/10 p-6 shadow-[var(--shadow-card)]">
           <h2 className="text-[15px] font-medium text-[#2C2C2A] mb-4">Edit Information</h2>
           {fetching ? (
             <div className="space-y-3">
