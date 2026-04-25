@@ -4,7 +4,7 @@ import { registerUser } from '../../api/auth.api';
 import { useToast } from '../../context/ToastContext';
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
-import { Leaf, Eye, EyeOff } from 'lucide-react';
+import { Leaf, Eye, EyeOff, ArrowLeft } from 'lucide-react';
 
 const RegisterPage = () => {
   const { showToast } = useToast();
@@ -57,6 +57,16 @@ const RegisterPage = () => {
   return (
     <div className="min-h-screen bg-[#F1EFE8] flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
+        {/* Back to Home */}
+        <div className="mb-6">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-1.5 text-[13px] text-[#5F5E5A] hover:text-[#3B6D11] transition-colors group"
+          >
+            <ArrowLeft size={14} strokeWidth={2} className="group-hover:-translate-x-0.5 transition-transform" />
+            Back to Home
+          </Link>
+        </div>
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="w-12 h-12 rounded-xl bg-[#EAF3DE] flex items-center justify-center mx-auto mb-3">
