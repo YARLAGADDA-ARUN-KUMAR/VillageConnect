@@ -111,6 +111,18 @@ const HomePage = () => (
           </a>
         </div>
 
+        {/* Admin entry */}
+        <p className="text-[13px] text-[#9e9d99]">
+          Are you an admin?{' '}
+          <Link
+            to="/admin-login"
+            id="hero-admin-login-link"
+            className="text-[#3B6D11] font-medium hover:text-[#27500A] underline underline-offset-2"
+          >
+            Admin Login →
+          </Link>
+        </p>
+
         {/* Stats row */}
         <div className="flex flex-wrap justify-center gap-8 mt-8 pt-8 border-t border-[#EAF3DE] w-full">
           {[['5 Modules', 'All essential services'], ['100% Free', 'For all villagers'], ['Secure', 'JWT-protected data']].map(([val, label]) => (

@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { registerUser } from '../../api/auth.api';
+import { loginUser } from '../../api/auth.api';
+import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
 
-const RegisterPage = () => {
+const AdminLoginPage = () => {
+  const { login } = useAuth();
   const { showToast } = useToast();
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '' });
+  const [form, setForm] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({});
   const [apiError, setApiError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -17,20 +19,15 @@ const RegisterPage = () => {
 
   const validate = () => {
     const errs = {};
-    if (!form.name.trim()) errs.name = 'Name is required';
     if (!form.email) errs.email = 'Email is required';
     else if (!/\S+@\S+\.\S+/.test(form.email)) errs.email = 'Enter a valid email';
     if (!form.password) errs.password = 'Password is required';
-    else if (form.password.length < 6) errs.password = 'Password must be at least 6 characters';
-    if (!form.confirmPassword) errs.confirmPassword = 'Please confirm your password';
-    else if (form.password !== form.confirmPassword) errs.confirmPassword = 'Passwords do not match';
     return errs;
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
-    setErrors({ ...errors, [name]: '' });
+    setForm({ ...form, [e.target.name]: e.target.value });
+    setErrors({ ...errors, [e.target.name]: '' });
     setApiError('');
   };
 
@@ -41,11 +38,20 @@ const RegisterPage = () => {
 
     setLoading(true);
     try {
-      await registerUser({ name: form.name, email: form.email, password: form.password });
-      showToast('Account created! Please sign in.', 'success');
-      navigate('/login');
+      const { data } = await loginUser(form);
+
+      // Check role BEFORE storing auth — reject non-admins
+      if (data.user.role !== 'admin') {
+        setApiError('Access denied. This login is for administrators only.');
+        showToast('Access denied — not an admin account.', 'error');
+        return;
+      }
+
+      login(data.user, data.token);
+      showToast('Welcome, Admin!', 'success');
+      navigate('/admin');
     } catch (err) {
-      const msg = err.response?.data?.message || 'Registration failed. Please try again.';
+      const msg = err.response?.data?.message || 'Login failed. Please try again.';
       setApiError(msg);
       showToast(msg, 'error');
     } finally {
@@ -56,19 +62,23 @@ const RegisterPage = () => {
   return (
     <div className="min-h-screen bg-[#F1EFE8] flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
-        {/* Logo */}
+        {/* Logo + Badge */}
         <div className="text-center mb-8">
-          <div className="w-12 h-12 rounded-xl bg-[#EAF3DE] flex items-center justify-center mx-auto mb-3">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3B6D11" strokeWidth="2">
-              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/>
-              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+          <div className="w-14 h-14 rounded-xl bg-[#27500A] flex items-center justify-center mx-auto mb-3 shadow-md">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" strokeLinecap="round" />
             </svg>
           </div>
-          <h1 className="text-[22px] font-medium text-[#2C2C2A]">Create your account</h1>
-          <p className="text-[14px] text-[#5F5E5A] mt-1">Join VillageConnect today</p>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#27500A]/10 rounded-full mb-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#3B6D11] inline-block" />
+            <span className="text-[12px] font-medium text-[#27500A] tracking-wide uppercase">Admin Access</span>
+          </div>
+          <h1 className="text-[22px] font-medium text-[#2C2C2A]">Admin Login</h1>
+          <p className="text-[14px] text-[#5F5E5A] mt-1">Sign in to the VillageConnect admin panel</p>
         </div>
 
-        <div className="bg-white rounded-xl border border-[#3B6D11]/10 p-6 sm:p-8">
+        <div className="bg-white rounded-xl border border-[#27500A]/15 p-6 sm:p-8 shadow-sm">
           {apiError && (
             <div className="mb-4 px-4 py-3 bg-red-50 border border-red-200 rounded-lg text-[13px] text-[#E24B4A]">
               {apiError}
@@ -77,23 +87,11 @@ const RegisterPage = () => {
 
           <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
             <Input
-              id="reg-name"
-              label="Full Name"
-              name="name"
-              type="text"
-              placeholder="Your full name"
-              value={form.name}
-              onChange={handleChange}
-              error={errors.name}
-              autoComplete="name"
-            />
-
-            <Input
-              id="reg-email"
-              label="Email address"
+              id="admin-login-email"
+              label="Admin Email"
               name="email"
               type="email"
-              placeholder="you@example.com"
+              placeholder="admin@example.com"
               value={form.email}
               onChange={handleChange}
               error={errors.email}
@@ -101,16 +99,22 @@ const RegisterPage = () => {
             />
 
             <Input
-              id="reg-password"
+              id="admin-login-password"
               label="Password"
               name="password"
               type={showPass ? 'text' : 'password'}
-              placeholder="At least 6 characters"
+              placeholder="Your password"
               value={form.password}
               onChange={handleChange}
               error={errors.password}
+              autoComplete="current-password"
               rightElement={
-                <button type="button" onClick={() => setShowPass(!showPass)} className="text-[#9e9d99] hover:text-[#5F5E5A]" tabIndex={-1}>
+                <button
+                  type="button"
+                  onClick={() => setShowPass(!showPass)}
+                  className="text-[#9e9d99] hover:text-[#5F5E5A] transition-colors"
+                  tabIndex={-1}
+                >
                   {showPass ? (
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19M1 1l22 22" strokeLinecap="round"/>
@@ -124,35 +128,26 @@ const RegisterPage = () => {
               }
             />
 
-            <Input
-              id="reg-confirm-password"
-              label="Confirm Password"
-              name="confirmPassword"
-              type="password"
-              placeholder="Repeat your password"
-              value={form.confirmPassword}
-              onChange={handleChange}
-              error={errors.confirmPassword}
-            />
-
-
-
             <Button
-              id="register-submit-btn"
+              id="admin-login-submit-btn"
               type="submit"
               loading={loading}
               disabled={loading}
               size="lg"
-              className="w-full mt-2"
+              className="w-full mt-2 !bg-[#27500A] hover:!bg-[#1a3a07]"
             >
-              Create Account
+              Sign In as Admin
             </Button>
           </form>
 
           <p className="text-center text-[13px] text-[#5F5E5A] mt-5">
-            Already have an account?{' '}
+            Not an admin?{' '}
             <Link to="/login" className="text-[#3B6D11] font-medium hover:text-[#27500A]">
-              Sign in
+              Villager login
+            </Link>
+            {' '}·{' '}
+            <Link to="/" className="text-[#3B6D11] font-medium hover:text-[#27500A]">
+              Back to Home
             </Link>
           </p>
         </div>
@@ -161,4 +156,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default AdminLoginPage;

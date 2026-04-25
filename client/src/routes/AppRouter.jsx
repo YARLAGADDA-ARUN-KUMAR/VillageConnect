@@ -8,6 +8,7 @@ import RoleRoute from './RoleRoute';
 import HomePage from '../pages/HomePage';
 import LoginPage from '../pages/auth/LoginPage';
 import RegisterPage from '../pages/auth/RegisterPage';
+import AdminLoginPage from '../pages/auth/AdminLoginPage';
 import NotFoundPage from '../pages/NotFoundPage';
 
 // Villager pages
@@ -40,6 +41,7 @@ const AppRouter = () => (
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<PublicOnlyRoute><LoginPage /></PublicOnlyRoute>} />
       <Route path="/register" element={<PublicOnlyRoute><RegisterPage /></PublicOnlyRoute>} />
+      <Route path="/admin-login" element={<PublicOnlyRoute><AdminLoginPage /></PublicOnlyRoute>} />
 
       {/* Protected — Villager */}
       <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
