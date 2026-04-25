@@ -1,7 +1,12 @@
-import './App.css';
+import AppRouter from './routes/AppRouter';
+import { ToastProvider } from './context/ToastContext';
+import ToastContainer from './components/ui/ToastContainer';
 
-function App() {
-  return <></>;
-}
+const App = () => (
+  <ToastProvider>
+    <AppRouter />
+    <ToastContainer />
+  </ToastProvider>
+);
 
 export default App;
