@@ -2,9 +2,8 @@ import { useState, useEffect } from 'react';
 import { fetchTips } from '../../api/agriculture.api';
 import { useToast } from '../../context/ToastContext';
 import VillagerLayout from '../../components/layout/VillagerLayout';
-import Badge from '../../components/ui/Badge';
+import AgricultureCard from '../../components/cards/AgricultureCard';
 import SkeletonCard from '../../components/ui/SkeletonCard';
-import { formatDateShort } from '../../utils/formatDate';
 import { Leaf } from 'lucide-react';
 
 const tabs = ['all', 'tip', 'scheme'];
@@ -65,16 +64,7 @@ const AgriculturePage = () => {
         <EmptyState filter={activeTab} />
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filtered.map((tip) => (
-            <div key={tip._id} className="bg-white rounded-xl border border-[#3B6D11]/10 p-5 flex flex-col gap-3 hover:border-[#3B6D11]/25 transition-all">
-              <div className="flex items-start justify-between gap-2">
-                <h3 className="text-[15px] font-medium text-[#2C2C2A] leading-snug">{tip.title}</h3>
-                <Badge status={tip.category} />
-              </div>
-              <p className="text-[13px] text-[#5F5E5A] leading-relaxed flex-1">{tip.description}</p>
-              <p className="text-[11px] text-[#9e9d99]">Updated {formatDateShort(tip.updatedAt)}</p>
-            </div>
-          ))}
+          {filtered.map((tip) => <AgricultureCard key={tip._id} tip={tip} />)}
         </div>
       )}
     </VillagerLayout>

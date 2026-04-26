@@ -28,6 +28,16 @@ export const updateHealthInfo = async (req, res) => {
   }
 };
 
+export const getHealthInfoById = async (req, res) => {
+  try {
+    const item = await HealthInfo.findById(req.params.id);
+    if (!item) return res.status(404).json({ message: 'Health info not found' });
+    res.json({ info: item });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export const deleteHealthInfo = async (req, res) => {
   try {
     const item = await HealthInfo.findByIdAndDelete(req.params.id);

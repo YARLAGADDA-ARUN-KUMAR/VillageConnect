@@ -28,6 +28,16 @@ export const updateTip = async (req, res) => {
   }
 };
 
+export const getTipById = async (req, res) => {
+  try {
+    const tip = await AgricultureTip.findById(req.params.id);
+    if (!tip) return res.status(404).json({ message: 'Tip not found' });
+    res.json({ tip });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export const deleteTip = async (req, res) => {
   try {
     const tip = await AgricultureTip.findByIdAndDelete(req.params.id);

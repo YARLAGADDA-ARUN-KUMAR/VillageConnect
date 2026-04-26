@@ -28,6 +28,16 @@ export const updateResource = async (req, res) => {
   }
 };
 
+export const getResourceById = async (req, res) => {
+  try {
+    const resource = await EducationResource.findById(req.params.id);
+    if (!resource) return res.status(404).json({ message: 'Resource not found' });
+    res.json({ resource });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export const deleteResource = async (req, res) => {
   try {
     const resource = await EducationResource.findByIdAndDelete(req.params.id);

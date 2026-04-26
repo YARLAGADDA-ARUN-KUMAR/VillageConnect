@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { fetchHealthInfo } from '../../api/healthcare.api';
 import { useToast } from '../../context/ToastContext';
 import VillagerLayout from '../../components/layout/VillagerLayout';
+import HealthcareCard from '../../components/cards/HealthcareCard';
 import SkeletonCard from '../../components/ui/SkeletonCard';
-import { formatDateShort } from '../../utils/formatDate';
 import { Activity } from 'lucide-react';
 
 const EmptyState = () => (
@@ -41,22 +41,7 @@ const HealthcarePage = () => {
         <EmptyState />
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {items.map((item) => (
-            <div key={item._id} className="bg-white rounded-xl border border-[#3B6D11]/10 p-5 flex flex-col gap-3 hover:border-[#3B6D11]/25 transition-all">
-              <div className="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center text-red-400">
-                <Activity size={20} strokeWidth={2} />
-              </div>
-              <h3 className="text-[15px] font-medium text-[#2C2C2A]">{item.title}</h3>
-              <div>
-                <p className="text-[11px] text-[#5F5E5A] uppercase tracking-wide mb-1">Services Available</p>
-                <p className="text-[13px] text-[#2C2C2A] leading-relaxed">{item.services}</p>
-              </div>
-              {item.description && (
-                <p className="text-[13px] text-[#5F5E5A] leading-relaxed">{item.description}</p>
-              )}
-              <p className="text-[11px] text-[#9e9d99] mt-auto">Updated {formatDateShort(item.updatedAt)}</p>
-            </div>
-          ))}
+          {items.map((item) => <HealthcareCard key={item._id} item={item} />)}
         </div>
       )}
     </VillagerLayout>
